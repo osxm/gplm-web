@@ -7,22 +7,41 @@
           <el-tooltip class="item" effect="dark" content="全屏" placement="bottom"><i
             class="fa fa-arrows-alt fa-lg"></i></el-tooltip>
         </li>
+        <li>
+          <LangSwitch></LangSwitch>
+        </li>
+        <li>{{ $t(`role.${this.$store.getters.info.role}`) }}</li>
+        <li>
+          <el-dropdown @command="handleCommand">
+                  <span class="el-dropdown-link">
+                    Chen Oscar<i class="el-icon-arrow-down el-icon--right"></i>
+                  </span>
+            <el-dropdown-menu slot="dropdown">
+              <el-dropdown-item command="info">{{ $t('userDropdownMenu.basicInfor') }}</el-dropdown-item>
+              <el-dropdown-item command="editPassword">{{ $t('userDropdownMenu.changePassword') }}</el-dropdown-item>
+              <el-dropdown-item command="logout" divided>{{ $t('userDropdownMenu.logout') }}</el-dropdown-item>
+            </el-dropdown-menu>
+          </el-dropdown>
+        </li>
+        <li class="icon"><img :src="avatar"/></li>
       </ul>
-    </el-header>    
+    </el-header>
+    <TopTab></TopTab>
+    <user-info v-if="dialogInfoVisible" :title="title" :dialogVisible="dialogInfoVisible" :userId="userId" @successCallback="successCallback"/>
+    <change-pass v-if="dialogPassVisible" :dialogVisible="dialogPassVisible" @editPwdCallback="editPwdCallback"/>
   </div>
 </template>
 
 <script>
-//import Cookies from "js-cookie"
-//import langSelect from "../../../components/lang/langSelect"
-//import tabNav from "./tabNav"
-//import UserInfo from "../../../components/userForm/userInfo"
-//import EditPassword from "../../../components/userForm/editPassword"
+import Cookies from "js-cookie"
+import LangSwitch from "@/components/lang/LangSwitch"
+import TopTab from "./TopTab"
+import UserInfo from "@/components/user/UserInfo"
+import ChangePass from "@/components/user/ChangePass"
 
 export default {
   name: "Header",
-  //components: {EditPassword, tabNav, langSelect, UserInfo},
-  //components: {},
+  components: {ChangePass, TopTab, LangSwitch, UserInfo},
   data () {
     return {
       isfullScreen: true,
@@ -44,7 +63,7 @@ export default {
       this.dialogPassVisible = false
     },
     fullScreen () {
-     /* if (this.isfullScreen) {
+      if (this.isfullScreen) {
         var docElm = document.documentElement
         if (docElm.requestFullscreen) {
           docElm.requestFullscreen()
@@ -52,9 +71,10 @@ export default {
           docElm.mozRequestFullScreen()
         } else if (docElm.webkitRequestFullScreen) {
           docElm.webkitRequestFullScreen()
-        } else if (elem.msRequestFullscreen) {
-          elem.msRequestFullscreen()
         }
+        /*else if (elem.msRequestFullscreen) {
+          elem.msRequestFullscreen()
+        }*/
         this.isfullScreen = false
       } else {
         if (document.exitFullscreen) {
@@ -67,11 +87,10 @@ export default {
           document.msExitFullscreen()
         }
         this.isfullScreen = true
-      }*/
+      }
     },
-     handleCommand () {
-   // handleCommand (command) {
-      /*if (command === "info") {
+    handleCommand (command) {
+      if (command === "info") {
         this.dialogInfoVisible = true
         this.title = "编辑信息"
         // this.userId = this.$store.getters.info.uid
@@ -80,7 +99,7 @@ export default {
       } else if (command === "logout") {
         Cookies.remove("token")
         location.reload()
-      }*/
+      }
     }
   }
 }
