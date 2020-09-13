@@ -1,32 +1,46 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view/>
+    <transition name="fade" mode="out-in">
+      <router-view/>
+    </transition>
   </div>
 </template>
+<script>
+export default {
+  name: "app"
+}
 
-<style>
+</script>
+
+<style lang="scss">
+body {
+	margin: 0px;
+	padding: 0px;
+	font-family: Microsoft YaHei, Helvetica Neue, Helvetica, PingFang SC, Hiragino Sans GB,  SimSun, sans-serif;
+	font-size: 14px;
+	-webkit-font-smoothing: antialiased;
+}
+
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+	position: absolute;
+	top: 0px;
+	bottom: 0px;
+	width: 100%;
+}
+a{
+  color: #56a9ff;
+}
+.fade-enter-active,
+.fade-leave-active {
+	transition: all .2s ease;
 }
 
-#nav {
-  padding: 30px;
+.fade-enter,
+.fade-leave-active {
+	opacity: 0;
 }
-
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-#nav a.router-link-exact-active {
-  color: #42b983;
+#nprogress .bar {
+  height: 3px !important;
+  background: #56a9ff !important; //自定义颜色
 }
 </style>
