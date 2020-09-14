@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-header id="header">
+    <el-header id="topHeader">
       <span class="hideAside" @click="collapse"><i class="fa fa-indent fa-lg"></i></span>
       <ul class="personal">
         <li class="fullScreen" @click="fullScreen">
@@ -40,7 +40,7 @@ import UserInfo from "@/components/user/UserInfo"
 import ChangePass from "@/components/user/ChangePass"
 
 export default {
-  name: "Header",
+  name: "TopHeader",
   components: {ChangePass, TopTab, LangSwitch, UserInfo},
   data () {
     return {
@@ -133,7 +133,7 @@ export default {
     }
   }
 
-  #header {
+  #topHeader {
     max-height: 50px;
     line-height: 50px;
     box-shadow: 0 1px 2px 0 rgba(0, 0, 0, .05);

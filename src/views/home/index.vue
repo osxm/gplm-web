@@ -3,9 +3,9 @@
   <!-- Author:Chen Xueming -->
   <div class="home">
     <el-container>
-      <Header></Header>
-      <el-container>
-        <el-aside width="200px">Aside</el-aside>
+      <Left-nav></Left-nav>
+      <el-container>    
+        <top-header></top-header>
         <el-container>
           <el-main id="elmain">
           <transition name="main" mode="out-in">
@@ -20,14 +20,14 @@
 </template>
 
 <script>
-import Header from "@/views/home/Header"
-//import Navigation from "@/views/home/Navigation"
+import TopHeader from "@/views/home/TopHeader"
+import LeftNav from "@/views/home/LeftNav"
 
 export default {
   name: "layout",
   components: {
-    Header
-    //,Navigation
+    TopHeader,
+    LeftNav
   }
 }
 </script>
