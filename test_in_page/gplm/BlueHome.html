@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="author" content="Chen Xueming">
+    <title>Home Demo</title>
+    <script type="text/javascript" src="../../node_modules/vue/dist/vue.js"></script>
+    <script src="../../node_modules/element-ui/lib/index.js"></script>
+    <script src="../../node_modules/vuex/dist/vuex.js"></script>
+
+    <link rel="stylesheet" href="../../node_modules/element-ui/lib/theme-chalk/index.css">
+    <link rel="stylesheet" href="../../node_modules/font-awesome/css/font-awesome.css">
+
+    <style>
+        body {
+            margin: 0px;
+        }
+
+        html,
+        body,
+        #home,
+        .el-container,
+        #leftNav,
+        ul.el-menu {
+            height: 100%;
+        }
+
+        #leftNav {
+            width: auto !important;
+            background-color: #1995CC;
+            display: flex;
+            flex-direction: column;
+        }
+
+        #leftNav .nav-logo {
+            height: 50px !important;
+            padding-left: 15px;
+            color: #fff;
+            font-size: 16px;
+            font-weight: 400;
+            z-index: 999;
+            font-family: RionaSans, helvetica, arial, verdana, sans-serif;
+        }
+
+        #leftNav .el-menu-vertical {
+            overflow-x: hidden;
+            height: 100%;
+        }
+
+        .el-menu-vertical:not(.el-menu--collapse) {
+            width: 260px;
+        }
+
+        #leftNav .el-menu {
+            background-color: #1995CC;
+            border-right: none;
+        }
+
+        #leftNav .el-menu .el-menu-item {
+            background-color: #1995CC !important;
+            color: #fff;
+        }
+
+        .el-submenu__title {
+            color: #fff;
+        }
+
+        #leftNav .el-menu .el-menu-item.is-active {
+            background-color: #6cdf15 !important
+        }
+
+        #leftNav .el-menu-item-group__title {
+            padding: 0px !important;
+        }
+
+        #leftNav .el-submenu {
+            background-color: #1995CC !important;
+        }
+
+        .hideNav {
+            float: right;
+            cursor: pointer;
+            padding-right: 20px;
+        }
+
+
+        #header {
+            height: 50px !important;
+            background-color: #00A1DE !important;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .header-tools {
+            display: flex;
+            flex-direction: row;
+        }
+
+        .header-tools li {
+            list-style: none;
+            margin-left: 13px;
+            margin-right: 13px;
+        }
+
+        .header-tools .fullScreen {
+            cursor: pointer;
+            color: #fff;
+        }
+
+        .header-tools.el-dropdown-link {
+            cursor: pointer;
+        }
+
+        .header-tools .avatar img {
+            margin-top: 0px;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div id="home">
+        <el-container>
+            <!-- 左侧导航栏 -->
+            <el-aside id="leftNav">
+                <div class="nav-logo">
+                    <p v-if="isCollapse">
+                        <b> </b>
+                        <span class="hideNav" @click="collapse"><i class="fa fa-indent fa-lg"></i></span></p>
+                    <p v-else>
+                        <b>GPLM</b>
+                        <span class="hideNav" @click="collapse"><i class="fa fa-indent fa-lg"></i></span>
+                    </p>
+                </div>
+                <el-menu :collapse="isCollapse" default-active="1" :collapse-transition="true" class="el-menu-vertical"
+                    @open="handleOpen" @close="handleClose">
+                    <el-menu-item index="0">
+                        <i class="el-icon-s-home"></i>
+                        <span slot="title">主页</span>
+                    </el-menu-item>
+                    <el-submenu index="1">
+                        <template slot="title">
+                            <i class="el-icon-location"></i>
+                            <span>导航一</span>
+                        </template>
+                        <el-menu-item-group>
+                            <el-menu-item index="1-1">选项1</el-menu-item>
+                            <el-menu-item index="1-2">选项2</el-menu-item>
+                        </el-menu-item-group>
+                    </el-submenu>
+                    <el-menu-item index="2">
+                        <i class="el-icon-menu"></i>
+                        <span slot="title">导航二</span>
+                    </el-menu-item>
+                    <el-menu-item index="3">
+                        <i class="el-icon-setting"></i>
+                        <span slot="title">导航三</span>
+                    </el-menu-item>
+                    <el-submenu index="4">
+                        <template slot="title">
+                            <i class="el-icon-location"></i>
+                            <span>导航一</span>
+                        </template>
+                        <el-menu-item-group>
+                            <el-menu-item index="4-1">选项1</el-menu-item>
+                            <el-menu-item index="4-2">选项2</el-menu-item>
+                        </el-menu-item-group>
+                    </el-submenu>
+                    <el-submenu index="5">
+                        <template slot="title">
+                            <i class="el-icon-location"></i>
+                            <span>导航一</span>
+                        </template>
+                        <el-menu-item-group>
+                            <el-menu-item index="1-1">选项1</el-menu-item>
+                            <el-menu-item index="1-2">选项2</el-menu-item>
+                        </el-menu-item-group>
+                    </el-submenu>
+                    <el-submenu index="6">
+                        <template slot="title">
+                            <i class="el-icon-location"></i>
+                            <span>导航一</span>
+                        </template>
+                        <el-menu-item-group>
+                            <el-menu-item index="1-1">选项1</el-menu-item>
+                            <el-menu-item index="1-2">选项2</el-menu-item>
+                        </el-menu-item-group>
+                    </el-submenu>
+                    <el-submenu index="7">
+                        <template slot="title">
+                            <i class="el-icon-location"></i>
+                            <span>导航一</span>
+                        </template>
+                        <el-menu-item-group>
+                            <el-menu-item index="1-1">选项1</el-menu-item>
+                            <el-menu-item index="1-2">选项2</el-menu-item>
+                        </el-menu-item-group>
+                    </el-submenu>
+                </el-menu>
+            </el-aside>
+            <el-container>
+                <el-header id="header">
+                    <span><i></i></span>
+                    <ul class="header-tools">
+                        <li class="fullScreen" @click="fullScreen">
+                            <el-tooltip class="item" effect="dark" content="全屏" placement="bottom"><i
+                                    class="fa fa-arrows-alt fa-lg"></i>
+                            </el-tooltip>
+                        </li>
+                        <li>
+                            <el-dropdown>
+                                <div>
+                                    <span class="el-dropdown-link"><i class="fa fa-language fa-lg"></i>&nbsp;中文<i
+                                            class="el-icon-arrow-down el-icon--right"></i>
+                                    </span>
+                                </div>
+                                <el-dropdown-menu slot="dropdown">
+                                    <el-dropdown-item command="cn">中文</el-dropdown-item>
+                                    <el-dropdown-item command="en">English</el-dropdown-item>
+                                </el-dropdown-menu>
+                            </el-dropdown>
+                        </li>
+                        <li>
+                            <el-dropdown @command="handleCommand">
+                                <span class="el-dropdown-link">
+                                    Oscar<i class="el-icon-arrow-down el-icon--right"></i>
+                                </span>
+                                <el-dropdown-menu slot="dropdown">
+                                    <el-dropdown-item command="info">基本信息</el-dropdown-item>
+                                    <el-dropdown-item command="editPassword">修改密码</el-dropdown-item>
+                                    <el-dropdown-item command="logout" divided>退出</el-dropdown-item>
+                                </el-dropdown-menu>
+                            </el-dropdown>
+                        </li>
+                        <li class="avatar">
+                            <el-avatar size="small"
+                                src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"></el-avatar>
+                        </li>
+                    </ul>
+                </el-header>
+                <el-container>
+                    <el-main>
+                        <el-tabs v-model="editableTabsValue" type="card" editable @edit="handleTabsEdit">
+                            <el-tab-pane
+                              :key="item.name"
+                              v-for="(item, index) in editableTabs"
+                              :label="item.title"
+                              :name="item.name"
+                            >
+                                <el-tabs :tab-position="tabPosition" style="height: 200px;">
+                                    <el-tab-pane label="用户管理"><br>用户管理</el-tab-pane>
+                                    <el-tab-pane label="配置管理"><br>配置管理</el-tab-pane>
+                                    <el-tab-pane label="角色管理"><br>角色管理</el-tab-pane>
+                                    <el-tab-pane label="定时任务补偿"><br>定时任务补偿</el-tab-pane>
+                                </el-tabs>
+                            </el-tab-pane>
+                          </el-tabs>
+                    </el-main>
+                </el-container>
+            </el-container>
+        </el-container>
+    </div>
+    <script>
+        var store = new Vuex.Store({
+            state: {
+                isCollapse: false
+            },
+            mutations: {
+                collapse(state, arg) {
+                    state.isCollapse = !state.isCollapse
+                }
+            },
+            actions: {
+                collapse({ commit }, arg) {
+                    commit("collapse", arg)
+                }
+            },
+            getters: { isCollapse: state => state.isCollapse },
+            modules: {
+            }
+        });
+
+        new Vue({
+            el: '#home',
+            store,
+            data: function () {
+                return {
+                    visible: false,
+                    isCollapse: true,
+                    editableTabs: [{
+                        title: 'Home',
+                        name: '1',
+                        content: 'Tab 1 content'
+                        }, {
+                        title: 'Tab 2',
+                        name: '2',
+                        content: 'Tab 2 content'
+                    }],
+                }
+            }, methods: {
+                handleOpen(key, keyPath) {
+                    console.log(key, keyPath);
+                },
+                handleClose(key, keyPath) {
+                    console.log(key, keyPath);
+                },
+                collapse() {
+                    this.isCollapse = !this.isCollapse;
+                },
+                fullScreen() {
+                }
+            }
+
+        })
+    </script>
+</body>
+
+</html>
