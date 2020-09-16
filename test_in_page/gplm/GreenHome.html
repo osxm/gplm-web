@@ -241,17 +241,22 @@
                 </el-header>
                 <el-container>
                     <el-main>
-                        <el-tabs type="card">
-                            <el-tab-pane closable="false" key="myworkspace" label="我的工作台"
-                                name="myworkspace">
-                                <el-tabs style="height: 200px;">
-                                    <el-tab-pane label="用户管理"><br>用户管理</el-tab-pane>
-                                    <el-tab-pane label="配置管理"><br>配置管理</el-tab-pane>
-                                    <el-tab-pane label="角色管理"><br>角色管理</el-tab-pane>
-                                    <el-tab-pane label="定时任务补偿"><br>定时任务补偿</el-tab-pane>
+                        <el-tabs type="card" v-model="activeName">
+                            <el-tab-pane label="我的控制台" name="myworkspace">
+                                <el-tabs style="height: 100%;">
+                                    <el-tab-pane label="待办事项"><br>用户管理</el-tab-pane>
+                                    <el-tab-pane label="我签核过的"><br>角色管理</el-tab-pane>
+                                    <el-tab-pane label="我提交的"><br>定时任务补偿</el-tab-pane>
                                 </el-tabs>
                             </el-tab-pane>
-                        </el-tabs>
+                            <el-tab-pane label="配置管理" name="second" closable>
+                              <el-tabs style="height: 100%;">
+                                  <el-tab-pane label="用户管理"><br>用户管理</el-tab-pane>
+                                  <el-tab-pane label="角色管理"><br>角色管理</el-tab-pane>
+                                  <el-tab-pane label="定时任务补偿"><br>定时任务补偿</el-tab-pane>
+                              </el-tabs>
+                            </el-tab-pane>
+                          </el-tabs>
                     </el-main>
                 </el-container>
             </el-container>
@@ -284,16 +289,7 @@
                 return {
                     visible: false,
                     isCollapse: true,
-                    editableTabsValue: '2',
-                    editableTabs: [{
-                        title: 'Home',
-                        name: 'home',
-                        content: 'Tab 1 content'
-                    }, {
-                        title: 'Tab 2',
-                        name: '2',
-                        content: 'Tab 2 content'
-                    }]
+                    activeName: 'myworkspace'
                 }
             }, methods: {
                 handleOpen(key, keyPath) {
